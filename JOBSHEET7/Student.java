@@ -1,19 +1,15 @@
-public class Student{
-    int nim , age ;
-    String name;
-    double gpa;
+public class Student {
+    String id, name, studyProgram;
 
-    public Student(int nim , int age , String name , double gpa){
+    public Student(String id, String name, String studyProgram) {
+        this.id = id;
         this.name = name;
-        this.age = age;
-        this.nim = nim ;
-        this.gpa = gpa;
+        this.studyProgram = studyProgram;
     }
 
-    public void display(){
-        System.out.println("NIM :" + nim);
-        System.out.println("Name :" + name);
-        System.out.println("age :" + age);
-        System.out.println("GPA :" + gpa);
+    public void display() {
+        System.out.println("NIM   : " + id);
+        System.out.println("Name  : " + name);
+        System.out.println("Study Program : " + studyProgram);
     }
 }
