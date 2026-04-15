@@ -5,27 +5,65 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        // DATA
-        Student[] students = {
-            new Student("22001","Abdul","Informatics Engineering"),
-            new Student("22002","Bestari","Informatics Engineering"),
-            new Student("22003","Gandi","Business Information System")
-        };
+       // INPUT STUDENTS , 1. Modify the list data to accept user input.
+System.out.print("Input number of students: ");
+int nStudent = sc.nextInt();
+sc.nextLine();
 
-        Book[] books = {
-            new Book("B001","Algorithm",2020),
-            new Book("B002","Database",2019),
-            new Book("B003","Programming",2021),
-            new Book("B004","Physics",2024)
-        };
+Student[] students = new Student[nStudent];
 
-        Loan[] loans = {
-            new Loan(students[0],books[0],7),
-            new Loan(students[1],books[1],3),
-            new Loan(students[2],books[2],10),
-            new Loan(students[2],books[3],6),
-            new Loan(students[0],books[1],4)
-        };
+for(int i = 0; i < nStudent; i++){
+    System.out.println("\nStudent " + (i+1));
+    System.out.print("ID: ");
+    String id = sc.nextLine();
+    System.out.print("Name: ");
+    String name = sc.nextLine();
+    System.out.print("Study Program: ");
+    String sp = sc.nextLine();
+
+    students[i] = new Student(id, name, sp);
+}
+
+// INPUT BOOKS
+System.out.print("\nInput number of books: ");
+int nBook = sc.nextInt();
+sc.nextLine();
+
+Book[] books = new Book[nBook];
+
+for(int i = 0; i < nBook; i++){
+    System.out.println("\nBook " + (i+1));
+    System.out.print("Code: ");
+    String code = sc.nextLine();
+    System.out.print("Title: ");
+    String title = sc.nextLine();
+    System.out.print("Year: ");
+    int year = sc.nextInt();
+    sc.nextLine();
+
+    books[i] = new Book(code, title, year);
+}
+
+// INPUT LOANS
+System.out.print("\nInput number of loans: ");
+int nLoan = sc.nextInt();
+
+Loan[] loans = new Loan[nLoan];
+
+for(int i = 0; i < nLoan; i++){
+    System.out.println("\nLoan " + (i+1));
+
+    System.out.print("Choose student index (0 - " + (nStudent-1) + "): ");
+    int sIndex = sc.nextInt();
+
+    System.out.print("Choose book index (0 - " + (nBook-1) + "): ");
+    int bIndex = sc.nextInt();
+
+    System.out.print("Loan duration (days): ");
+    int duration = sc.nextInt();
+
+    loans[i] = new Loan(students[sIndex], books[bIndex], duration);
+}
 
         int choice;
 
@@ -56,19 +94,43 @@ public class Main {
                     System.out.println("\nFine already calculated automatically!");
                     for(Loan loan: loans) loan.showLoan();
                     break;
-
+                // 2. Modify the sort menu by adding an option to select a different sorting algorithm (hard).
                 case 4:
-                    insertionSort(loans);
-                    System.out.println("\nSorted by highest fine!");
-                    for(Loan loan: loans) loan.showLoan();
-                    break;
+                        System.out.println("\nChoose Sorting Method:");
+                        System.out.println("1. Insertion Sort (by Fine)");
+                        System.out.println("2. Selection Sort (by Fine)");
+                        System.out.print("Choose: ");
+                        int sortChoice = sc.nextInt();
 
-                case 5:
-                    sortByID(loans);
-                    System.out.print("Input ID: ");
-                    String id = sc.next();
-                    binarySearch(loans, id);
-                    break;
+                        if(sortChoice == 1){
+                            insertionSort(loans);
+                            System.out.println("\nSorted using Insertion Sort!");
+                        } else if(sortChoice == 2){
+                            selectionSort(loans);
+                            System.out.println("\nSorted using Selection Sort!");
+                        }
+
+                        for(Loan loan: loans) loan.showLoan();
+                        break;
+                        // 3. Modify the search menu by adding a different search algorithm (hard).
+               case 5:
+                        System.out.println("\nChoose Search Method:");
+                        System.out.println("1. Binary Search");
+                        System.out.println("2. Sequential Search");
+                        System.out.print("Choose: ");
+                        int searchChoice = sc.nextInt();
+
+                        System.out.print("Input ID: ");
+                        String id = sc.next();
+
+                        if(searchChoice == 1){
+                            sortByID(loans); // wajib sebelum binary
+                            binarySearch(loans, id);
+                        } else if(searchChoice == 2){
+                            sequentialSearch(loans, id);
+                        }
+
+                        break;
             }
 
         } while(choice != 0);
@@ -87,6 +149,37 @@ public class Main {
             loans[j+1] = key;
         }
     }
+    // 2. Modify the sort menu by adding an option to select a different sorting algorithm (hard).
+    static void selectionSort(Loan[] loans){
+    for(int i = 0; i < loans.length - 1; i++){
+        int maxIndex = i;
+
+        for(int j = i + 1; j < loans.length; j++){
+            if(loans[j].fine > loans[maxIndex].fine){
+                maxIndex = j;
+            }
+        }
+
+        Loan temp = loans[i];
+        loans[i] = loans[maxIndex];
+        loans[maxIndex] = temp;
+    }
+}
+// 3. Modify the search menu by adding a different search algorithm (hard).
+        static void sequentialSearch(Loan[] loans, String id){
+    boolean found = false;
+
+    for(int i = 0; i < loans.length; i++){
+        if(loans[i].std.id.equals(id)){
+            loans[i].showLoan();
+            found = true;
+        }
+    }
+
+    if(!found){
+        System.out.println("Data not found!");
+    }
+}
 
 
     static void sortByID(Loan[] loans){
