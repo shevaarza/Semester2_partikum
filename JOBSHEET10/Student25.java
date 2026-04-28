@@ -1,4 +1,4 @@
-public class Student25 { // Replace 22 with your actual attendance number
+public class Student25 { 
     String nim;
     String name;
     String className;

@@ -28,7 +28,7 @@ public class StudentAssignmentStack25 { // Replace 22 with your actual attendanc
         }
     }
 
-    // 10. Method to push (add) a Student object onto the stack
+   
     void push(Student25 std) {
         if (!isFull()) {
             top++;
@@ -38,7 +38,7 @@ public class StudentAssignmentStack25 { // Replace 22 with your actual attendanc
         }
     }
 
-    // 11. Metode pop untuk mengambil dan menghapus data dari puncak stack
+
     Student25 pop() {
         if (!isEmpty()) {
             Student25 std = stack[top];
@@ -50,7 +50,7 @@ public class StudentAssignmentStack25 { // Replace 22 with your actual attendanc
         }
     }
 
-    // 12. Metode peek untuk melihat data di puncak stack tanpa menghapusnya
+
     Student25 peek() {
         if (!isEmpty()) {
             return stack[top];
@@ -60,7 +60,7 @@ public class StudentAssignmentStack25 { // Replace 22 with your actual attendanc
         }
     }
 
-    // 13. Metode print untuk menampilkan seluruh isi stack
+
     void print() {
         for (int i = 0; i <= top; i++) {
             System.out.println(stack[i].nim + "\t" + stack[i].name + "\t"
@@ -68,4 +68,23 @@ public class StudentAssignmentStack25 { // Replace 22 with your actual attendanc
         }
         System.out.println("");
     }
+
+    String convertToBinary(int grade) {
+    ConversionStack25 stack = new ConversionStack25();
+    
+    // Proses membagi angka menjadi biner
+    while (grade > 0) {
+        int mod = grade % 2;
+        stack.push(mod);
+        grade = grade / 2;
+    }
+    
+    // Proses mengambil hasil dari stack agar urutannya benar
+    String binary = "";
+    while (!stack.isEmpty()) {
+        binary += stack.pop();
+    }
+    
+    return binary;
+}
 }
