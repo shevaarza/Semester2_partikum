@@ -14,10 +14,23 @@ Student[] students = new Student[nStudent];
 
 for(int i = 0; i < nStudent; i++){
     System.out.println("\nStudent " + (i+1));
-    System.out.print("ID: ");
-    String id = sc.nextLine();
+
+   
+    String id;
+    while(true){
+        System.out.print("ID (numbers only): ");
+        id = sc.nextLine();
+
+        if(id.matches("\\d+")){ 
+            break;
+        } else {
+            System.out.println("Invalid! ID must be numbers only. Try again.");
+        }
+    }
+
     System.out.print("Name: ");
     String name = sc.nextLine();
+
     System.out.print("Study Program: ");
     String sp = sc.nextLine();
 
@@ -25,7 +38,7 @@ for(int i = 0; i < nStudent; i++){
 }
 
 // INPUT BOOKS
-System.out.print("\nInput number of books: ");
+System.out.print("\nInput amount of books: ");
 int nBook = sc.nextInt();
 sc.nextLine();
 
@@ -33,10 +46,23 @@ Book[] books = new Book[nBook];
 
 for(int i = 0; i < nBook; i++){
     System.out.println("\nBook " + (i+1));
-    System.out.print("Code: ");
-    String code = sc.nextLine();
+
+  
+    String code;
+    while(true){
+        System.out.print("Code (numbers only): ");
+        code = sc.nextLine();
+
+        if(code.matches("\\d+")){ 
+            break;
+        } else {
+            System.out.println("Invalid! Code must be numbers only. Try again.");
+        }
+    }
+
     System.out.print("Title: ");
     String title = sc.nextLine();
+
     System.out.print("Year: ");
     int year = sc.nextInt();
     sc.nextLine();
@@ -45,18 +71,41 @@ for(int i = 0; i < nBook; i++){
 }
 
 // INPUT LOANS
-System.out.print("\nInput number of loans: ");
+System.out.print("\nInput amount student of loans: ");
 int nLoan = sc.nextInt();
 
 Loan[] loans = new Loan[nLoan];
 
 for(int i = 0; i < nLoan; i++){
-    System.out.println("\nLoan " + (i+1));
+    System.out.println("\n==============================");
+    System.out.println("Loan " + (i+1));
+    System.out.println("==============================");
 
-    System.out.print("Choose student index (0 - " + (nStudent-1) + "): ");
+
+    System.out.println("\nAvailable Students:");
+    System.out.println("---------------------------------------------------------------");
+    System.out.printf("| %-5s | %-10s | %-20s | %-15s |\n", "Idx", "ID", "Name", "Study Program");
+    System.out.println("---------------------------------------------------------------");
+    for(int j = 0; j < students.length; j++){
+        System.out.printf("| %-5d | %-10s | %-20s | %-15s |\n",
+                j, students[j].id, students[j].name, students[j].studyProgram);
+    }
+    System.out.println("---------------------------------------------------------------");
+
+    System.out.print("Choose student index: ");
     int sIndex = sc.nextInt();
 
-    System.out.print("Choose book index (0 - " + (nBook-1) + "): ");
+    System.out.println("\nAvailable Books:");
+    System.out.println("-----------------------------------------------------------");
+    System.out.printf("| %-5s | %-10s | %-25s | %-6s |\n", "Idx", "Code", "Title", "Year");
+    System.out.println("-----------------------------------------------------------");
+    for(int j = 0; j < books.length; j++){
+        System.out.printf("| %-5d | %-10s | %-25s | %-6d |\n",
+                j, books[j].code, books[j].title, books[j].year);
+    }
+    System.out.println("-----------------------------------------------------------");
+
+    System.out.print("Choose book index: ");
     int bIndex = sc.nextInt();
 
     System.out.print("Loan duration (days): ");
@@ -64,7 +113,6 @@ for(int i = 0; i < nLoan; i++){
 
     loans[i] = new Loan(students[sIndex], books[bIndex], duration);
 }
-
         int choice;
 
         do {
@@ -138,17 +186,17 @@ for(int i = 0; i < nLoan; i++){
 
   
     static void insertionSort(Loan[] loans){
-        for(int i=1;i<loans.length;i++){
-            Loan key = loans[i];
-            int j = i-1;
+    for(int i=1;i<loans.length;i++){
+        Loan key = loans[i];
+        int j = i-1;
 
-            while(j>=0 && loans[j].fine < key.fine){
-                loans[j+1] = loans[j];
-                j--;
-            }
-            loans[j+1] = key;
+        while(j>=0 && loans[j].fine < key.fine){
+            loans[j+1] = loans[j];
+            j--;
         }
+        loans[j+1] = key;
     }
+}
     // 2. Modify the sort menu by adding an option to select a different sorting algorithm (hard).
     static void selectionSort(Loan[] loans){
     for(int i = 0; i < loans.length - 1; i++){
