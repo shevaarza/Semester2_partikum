@@ -1,16 +1,15 @@
-public class StudentAssignmentStack25 { // Replace 22 with your actual attendance number
+public class StudentAssignmentStack25 { 
     Student25[] stack;
     int top;
     int size;
 
-    // Parameterized Constructor
+
     public StudentAssignmentStack25(int size) {
         this.size = size;
         this.stack = new Student25[size];
         this.top = -1; 
     }
 
-    // 8. Method to check if the stack is full
     boolean isFull() {
         if (top == size - 1) {
             return true;
@@ -19,7 +18,7 @@ public class StudentAssignmentStack25 { // Replace 22 with your actual attendanc
         }
     }
 
-    // 9. Method to check if the stack is empty
+
     boolean isEmpty() {
         if (top == -1) {
             return true;
@@ -79,7 +78,7 @@ public class StudentAssignmentStack25 { // Replace 22 with your actual attendanc
         grade = grade / 2;
     }
     
-    // Proses mengambil hasil dari stack agar urutannya benar
+  
     String binary = "";
     while (!stack.isEmpty()) {
         binary += stack.pop();
